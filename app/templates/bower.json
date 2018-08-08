@@ -1,0 +1,17 @@
+{
+  "name": "<%= appname %>",
+  "description": "",
+  "authors": [],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "^8.0.0"
+  }
+}
