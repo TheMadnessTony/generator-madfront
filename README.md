@@ -1,9 +1,12 @@
-# generator-madfront [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> 
+# generator-madfront 
+![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)
+![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)
+
+> Yeoman generator that scaffolds out a front-end web app using gulp for the build process
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-madfront using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io) and generator-madfront using [npm](https://www.npmjs.com/).
 
 ```bash
 npm install -g yo
@@ -16,12 +19,21 @@ Then generate your new project:
 yo madfront
 ```
 
-## Getting To Know Yeoman
+## Features
+- Automatic compilation of SASS
+- CSS autoprefixing
+- Built-in preview server with BrowserSync
+- Image optimization
+- Minifying all scripts,styles and html
 
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+## Getting started
+- npm ```npm install --global yo gulp-cli bower generator-madfront```
+- Run ```yo madfront``` to scaffold your webapp
+- Run ```gulp dev``` to raise the server with automatic updates after changing the files
+- Run ```bower install <package> --save``` to install frontend dependencies
+- Run ```gulp build``` to build your webapp for production
+
+
 
 ## License
 
