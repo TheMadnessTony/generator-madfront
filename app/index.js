@@ -4,12 +4,13 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const mkdirp = require('mkdirp');
+const wiredep = require('wiredep');
 
 module.exports = class extends Generator {
   prompting() {
     // Greeting
     this.log(
-      yosay(`Welcome to the madness ${chalk.blue('generator-madfront')} generator!`)
+      yosay(`Welcome to the madness ${chalk.yellow('generator-madfront')} generator!`)
     );
 
     const prompts = [
@@ -52,6 +53,10 @@ module.exports = class extends Generator {
       this.templatePath('bower.json'),
       this.destinationPath('bower.json'),
       {appname: this.appname}
+    );
+    this.fs.copy(
+      this.templatePath('bowerrc'),
+      this.destinationPath('.bowerrc')
     );
   }
 
@@ -112,4 +117,18 @@ module.exports = class extends Generator {
       npm: true
     });
   }
+
+  end() {
+   const bowerJson = this.fs.readJSON(this.destinationPath('bower.json'));
+   const bye = chalk.green.bold('Enjoy the madness!');
+   this.log(bye);
+
+   // Wire Bower packages to .html
+   wiredep({
+     bowerJson: bowerJson,
+     directory: 'bower_components',
+     src: 'src/index.html'
+   });
+  }
 };
+

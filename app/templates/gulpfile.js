@@ -10,6 +10,7 @@ const uglify = require('gulp-uglify-es').default; // Minify JavaScript
 const htmlmin = require('gulp-htmlmin'); // Minify HTML
 const clean = require('gulp-clean'); // Clean directory
 const imagemin = require('gulp-imagemin'); // Minify images
+const wiredep = require('wiredep').stream; // Automatic wiring bower dependencies
 
 const reload = browserSync.reload; // Function for restarting the browser after changing files
 
@@ -24,7 +25,11 @@ gulp.task('html', function () {
         };
       })
     }))
-    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+      removeComments: true,
+      removeEmptyAttributes: true
+    }))
     .pipe(gulp.dest('dist'))
 });
 
@@ -96,11 +101,24 @@ gulp.task('fonts', function () {
 gulp.task('extras', function () {
   return gulp.src([
     'src/*',
-    '!src/*.html'
+    '!src/*.html',
+    '!src/scss',
+    '!src/js',
+    '!src/images',
+    '!src/fonts'
   ], {
     dot: true
   })
     .pipe(gulp.dest('dist'))
+});
+
+// Wiredep
+gulp.task('wiredep', function () {
+  return gulp.src('./src/index.html')
+    .pipe(wiredep({
+      directory: 'bower_components'
+    }))
+    .pipe(gulp.dest('./src'));
 });
 
 // Watcher for files
@@ -111,15 +129,23 @@ gulp.task('watch', function () {
   gulp.watch('src/images/**/*.*', gulp.series('images'));
   gulp.watch('src/fonts/**/*.*', gulp.series('fonts'));
   gulp.watch(['src/*', '!src/*.html'], gulp.series('extras'));
+  gulp.watch('bower.json', gulp.series('wiredep'));
 });
 
 // Browser-sync ( dev server with reload if files was changed )
 gulp.task('serve', function() {
   browserSync.init({
-    server: 'dist'
+    notify: false,
+    server: {
+      baseDir: 'dist',
+      routes: {
+        '/bower_components': 'bower_components'
+      }
+    }
   });
 
   browserSync.watch('./dist/**/*.*').on('change', browserSync.reload);
+  browserSync.watch('../bower.json').on('change', browserSync.reload);
 });
 
 // Clean dist directory ( build )
@@ -129,7 +155,7 @@ gulp.task('clean', function () {
 });
 
 // Build a production version
-gulp.task('build', gulp.series('clean', gulp.parallel('html', 'styles', 'scripts', 'images', 'fonts', 'extras'), function () {
+gulp.task('build', gulp.series('clean', 'wiredep', gulp.parallel('html', 'styles', 'scripts', 'images', 'fonts', 'extras'), function () {
   return gulp.src('dist')
     .pipe(plumber({
       errorHandler: notify.onError(function(err) {

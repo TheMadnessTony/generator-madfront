@@ -11,6 +11,13 @@
     "test",
     "tests"
   ],
+  "overrides": {
+    "normalize-css": {
+      "main": [
+        "normalize.css"
+      ]
+    }
+  },
   "dependencies": {
     "normalize-css": "^8.0.0"
   }
