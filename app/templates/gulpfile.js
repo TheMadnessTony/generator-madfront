@@ -11,8 +11,12 @@ const htmlmin = require('gulp-htmlmin'); // Minify HTML
 const clean = require('gulp-clean'); // Clean directory
 const imagemin = require('gulp-imagemin'); // Minify images
 const wiredep = require('wiredep').stream; // Automatic wiring bower dependencies
+const sourcemaps = require('gulp-sourcemaps'); // Source maps
+const gulpIf = require('gulp-if'); // If / else operator for gulp
 
 const reload = browserSync.reload; // Function for restarting the browser after changing files
+
+const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
 // HTML
 gulp.task('html', function () {
@@ -35,7 +39,7 @@ gulp.task('html', function () {
 
 // Styles
 gulp.task('styles', function () {
-  return gulp.src('src/scss/**/*.scss')
+  return gulp.src('src/scss/main.scss')
     .pipe(plumber({
       errorHandler: notify.onError(function(err) {
         return {
@@ -44,9 +48,11 @@ gulp.task('styles', function () {
         };
       })
     }))
+    .pipe(gulpIf(isDevelopment, sourcemaps.init()))
     .pipe(csso())
     .pipe(autoprefixer({ browsers: ['last 2 versions'] }))
     .pipe(sass({ outputStyle: 'compressed' }))
+    .pipe(gulpIf(isDevelopment, sourcemaps.write()))
     .pipe(gulp.dest('dist/css'))
     .pipe(size())
 });

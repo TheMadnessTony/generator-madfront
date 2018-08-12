@@ -77,8 +77,8 @@ module.exports = class extends Generator {
 
   _writingStyles() {
     this.fs.copyTpl(
-      this.templatePath('style.scss'),
-      this.destinationPath('src/scss/style.scss')
+      this.templatePath('main.scss'),
+      this.destinationPath('src/scss/main.scss')
     );
   }
 
