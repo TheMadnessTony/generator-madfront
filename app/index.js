@@ -1,5 +1,3 @@
-'use strict';
-
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
@@ -10,7 +8,7 @@ module.exports = class extends Generator {
   prompting() {
     // Greeting
     this.log(
-      yosay(`Welcome to the madness ${chalk.yellow('generator-madfront')} generator!`)
+      yosay(`Welcome to the insane ${chalk.yellow('generator-madfront')} generator!`)
     );
 
     const prompts = [
@@ -18,7 +16,7 @@ module.exports = class extends Generator {
         type: 'prompt',
         name: 'appname',
         message: 'Your project name ?',
-        default: 'Madfront'
+        default: 'madfront'
       }
     ];
 

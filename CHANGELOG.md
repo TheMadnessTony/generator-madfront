@@ -1,6 +1,9 @@
 # Changelog
 
-## [0.1.1] - 2018-08-12
+## [] - 
+- Update README.md
+
+## [0.2.0] - 2018-08-12
 ### Added
 - Sourcemaps for .css files
 - Development build - ```gulp build```

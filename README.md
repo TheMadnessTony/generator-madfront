@@ -1,8 +1,9 @@
 # generator-madfront 
-![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)
 
 > Yeoman generator that scaffolds out a front-end web app using gulp for the build process
+
+![](screenshot.png)
 
 ## Installation
 
@@ -33,11 +34,12 @@ yo madfront
 - Run ```bower install <package> --save``` to install frontend dependencies
 - Run ```gulp build``` to build your webapp for production
 
-
+## Gulp commands
+- `gulp `
 
 ## License
 
-MIT © [TheMadnessTony](https://github.com/TheMadnessTony)
+MIT © [themadnesstony](https://github.com/themadnesstony)
 
 
 [npm-image]: https://badge.fury.io/js/generator-madfront.svg
